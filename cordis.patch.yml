@@ -1,0 +1,10 @@
+# dsh-prompt-optimizer bundle patch: register the composer optimize button plugin.
+#
+# Applied as ONE insert over the composed profile root. The row activates the
+# plugin, which mounts a Client-side "优化" button beside the submit button and
+# a Host-side Typert Remote service that rewrites the draft through the
+# session's default LLM (falling back to deterministic local rules).
+
+- insert:
+    - id: dsh-prompt-optimizer
+      name: 'dsh-prompt-optimizer'
