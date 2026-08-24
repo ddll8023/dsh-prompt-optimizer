@@ -21,7 +21,15 @@ test("package metadata declares a web bundle and client entry", () => {
 test("Typert protocol is a peer dependency so Host Remotes share one marker registry", () => {
   const pkg = JSON.parse(readFileSync(packagePath, "utf8"));
   assert.equal(pkg.dependencies?.["@deepseek-ai/dsh-typert-protocol"], undefined);
-  assert.equal(pkg.peerDependencies?.["@deepseek-ai/dsh-typert-protocol"], "^0.1.0-rc.6");
+  assert.equal(pkg.peerDependencies?.["@deepseek-ai/dsh-typert-protocol"], "^0.1.0-rc.8");
+});
+
+test("client inject edges name provider packages, not service keys", () => {
+  const pkg = JSON.parse(readFileSync(packagePath, "utf8"));
+  for (const entry of pkg.dsh?.client?.inject ?? []) {
+    assert.match(entry, /^@deepseek-ai\//, `inject edge ${entry} is not a package name`);
+  }
+  assert.equal(pkg.peerDependencies?.["@deepseek-ai/dsh-client-ui-slots"], undefined);
 });
 
 test("required artifact files exist", () => {
